@@ -1,0 +1,36 @@
+<% layout('layouts/boilerplate') %>
+    <div id="cluster-map"></div>
+    <h1 class="">All Campgrounds</h1>
+    <div>
+        <a href="campgrounds/new"><button class="btn btn-primary mt-2 mb-4 text-warning border border-warning">Add Campground</button></a>
+    </div>
+    <ul>
+        <% for(let campground of campgrounds){%>
+            <div class="card border border-warning border-2 mb-4" >
+                <div class="row">
+                    <div class="col-md-4">
+                        <% if(campground.image.length){ %>
+                        <img class="img-fluid" alt="" src="<%= campground.image[0].url%>">
+                        <% }else{ %>
+                            <img class="img-fluid" src="https://res.cloudinary.com/dhnebcqyy/image/upload/v1690221097/YelpCamp/quqfjbhgknumntqem0oa.webp" alt="">
+                            <% } %>
+                        </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= campground.title %></h5> 
+                            <!-- <h5 class="card-title"><%= campground.properties.popUpMarkup %></h5>  -->
+                            <p class="card-text"><%= campground.description%></p>
+                            <p class="card-text">
+                                <small class="text-muted"><%= campground.location%></small>
+                            </p>
+                            <a class="btn btn-primary text-warning border border-warning" href="campgrounds/<%=campground._id %>">View <%= campground.title%></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </ul>
+    <script>
+        const campgrounds = {features:<%- JSON.stringify(campgrounds)%>}
+    </script>
+<script src="/javascripts/clusterMap.js"></script>
